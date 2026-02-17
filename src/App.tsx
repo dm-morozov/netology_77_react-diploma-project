@@ -1,17 +1,19 @@
 import { Route, Routes } from 'react-router-dom'
-import './App.css'
-import ServicesListPage from './pages/ServicesListPage/ServicesListPage'
-import ServiceDetailsPage from './pages/ServiceDetailsPage/ServiceDetailsPage'
+import MainLayout from './layout/MainLayout'
 
 function App() {
   return (
-    <>
-      <h1 className="title">Redux Saga</h1>
-      <Routes>
-        <Route path="/" element={<ServicesListPage />} />
-        <Route path="/:id/details" element={<ServiceDetailsPage />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<div>Home Page</div>} />
+        <Route path="catalog.html" element={<div>Catalog Page</div>} />
+        <Route path="about.html" element={<div>About Page</div>} />
+        <Route path="contacts.html" element={<div>Contacts Page</div>} />
+        <Route path="cart.html" element={<div>Cart Page</div>} />
+        <Route path="catalog/:id.html" element={<div>Product Page</div>} />
+        <Route path="*" element={<div>Not Found</div>} />
+      </Route>
+    </Routes>
   )
 }
 

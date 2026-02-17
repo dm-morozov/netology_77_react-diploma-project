@@ -1,4 +1,4 @@
-# Redux Saga: Список и детали услуг
+# Дипломный проект курса «React»
 
 [![Build & Deploy](https://github.com/dm-morozov/netology_77_react-diploma-project/actions/workflows/web.yaml/badge.svg)](https://github.com/dm-morozov/netology_77_react-diploma-project/actions/workflows/web.yaml)
 
