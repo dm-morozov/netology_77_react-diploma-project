@@ -1,6 +1,6 @@
 import { all } from 'redux-saga/effects'
-import { watchServicesSaga } from '../store/services/sagas'
+import { watchTopSales } from '../features/TopSales/topSalesSaga'
 
 export function* rootSaga() {
-  yield all([watchServicesSaga()])
+  yield all([watchTopSales()])
 }

@@ -1,0 +1,17 @@
+# Ignore public assets and generated files
+/public/
+/svg/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+
+# Node / build
+/node_modules/
+/dist/
+/build/
+
+# Lockfiles/configs
+yarn.lock
+pnpm-lock.yaml

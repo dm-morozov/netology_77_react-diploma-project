@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import headerLogo from '/img/header-logo.png'
 
 const Header = () => {
   return (
@@ -7,29 +8,29 @@ const Header = () => {
         <div className="col">
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
             <NavLink to="/" className="navbar-brand">
-              <img src="./img/header-logo.png" alt="Bosa Noga" />
+              <img src={headerLogo} alt="Bosa Noga" />
             </NavLink>
             <div className="collapse navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                  <a className="nav-link" href="/">
+                <li className="nav-item">
+                  <NavLink to="/" className="nav-link">
                     Главная
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/catalog.html">
+                  <NavLink className="nav-link" to="/catalog.html">
                     Каталог
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/about.html">
+                  <NavLink className="nav-link" to="/about.html">
                     О магазине
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/contacts.html">
+                  <NavLink className="nav-link" to="/contacts.html">
                     Контакты
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
               <div>
@@ -38,7 +39,7 @@ const Header = () => {
                     data-id="search-expander"
                     className="header-controls-pic header-controls-search"
                   ></div>
-                  {/* Do programmatic navigation on click to /cart.html */}
+                  {/* Выполнить программную навигацию по щелчку мыши на /cart.html */}
                   <div className="header-controls-pic header-controls-cart">
                     <div className="header-controls-cart-full">1</div>
                     <div className="header-controls-cart-menu"></div>

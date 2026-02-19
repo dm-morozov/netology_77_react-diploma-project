@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
-import { servicesReducer } from '../store/services/reducer'
+import topSalesReducer from '../features/TopSales/topSalesSlice'
 import { rootSaga } from './saga'
 
 const sagaMiddleware = createSagaMiddleware()
 export const store = configureStore({
   reducer: {
-    services: servicesReducer,
+    topSales: topSalesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
