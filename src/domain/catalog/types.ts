@@ -5,3 +5,8 @@ export interface ProductShop {
   price: number
   images: string[]
 }
+
+export interface Category {
+  id: number
+  title: string
+}
