@@ -1,6 +1,6 @@
 interface ErrorViewProps {
   message: string
-  onRetry: () => void
+  onRetry?: () => void
 }
 
 /**
@@ -12,8 +12,10 @@ interface ErrorViewProps {
 const ErrorView = ({ message, onRetry }: ErrorViewProps) => {
   return (
     <div>
-      <p>{message}</p>
-      <button onClick={onRetry}>Повторить запрос</button>
+      <div className="text-center text-danger">{message}</div>
+      {onRetry && typeof onRetry === 'function' && (
+        <button onClick={onRetry}>Повторить запрос</button>
+      )}
     </div>
   )
 }

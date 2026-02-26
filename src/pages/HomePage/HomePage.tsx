@@ -3,6 +3,8 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { topSalesRequested } from '../../features/TopSales/topSalesSlice'
 import { Link } from 'react-router-dom'
 import CatalogSection from '../../components/catalog/CatalogSection'
+import ErrorView from '../../components/ErrorView/ErrorView'
+import Spinner from '../../components/Spinner/Spinner'
 
 const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -17,16 +19,14 @@ const HomePage = () => {
       <section className="top-sales">
         <h2 className="text-center">Хиты продаж!</h2>
 
-        {isLoading && (
-          <div className="preloader">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        )}
+        {isLoading && <Spinner />}
 
-        {error && <div className="text-center text-danger">{error}</div>}
+        {error && (
+          <ErrorView
+            message={error}
+            onRetry={() => dispatch(topSalesRequested())}
+          />
+        )}
 
         {!isLoading && !error && (
           <div className="row">
