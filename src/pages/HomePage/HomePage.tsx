@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { topSalesRequested } from '../../features/TopSales/topSalesSlice'
 import { Link } from 'react-router-dom'
+import CatalogSection from '../../components/catalog/CatalogSection'
 
 const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -54,18 +55,7 @@ const HomePage = () => {
         )}
       </section>
 
-      <section className="catalog">
-        <h2 className="text-center">Каталог</h2>
-        {/* {Позже заменим на отдельный state каталога} */}
-        {isLoading && (
-          <div className="preloader">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        )}
-      </section>
+      <CatalogSection />
     </>
   )
 }

@@ -16,9 +16,14 @@ function* handleCatalogRequested(): Generator {
       (state: RootState) => state.categories.activeCategoryId,
     )
 
+    const searchQuery = yield select(
+      (state: RootState) => state.catalog.searchQuery,
+    )
+
     const data = yield call(getItems, {
       categoryId: categoryId as number,
       offset: 0,
+      q: searchQuery,
     })
     yield put(catalogSucceeded(data))
   } catch (error) {
@@ -34,9 +39,14 @@ function* handleLoadMoreRequested(): Generator {
 
     const offset = yield select((state: RootState) => state.catalog.offset)
 
+    const searchQuery = yield select(
+      (state: RootState) => state.catalog.searchQuery,
+    )
+
     const data = yield call(getItems, {
       categoryId: categoryId as number,
       offset: offset as number,
+      q: searchQuery,
     })
 
     yield put(catalogLoadMoreSucceeded(data))

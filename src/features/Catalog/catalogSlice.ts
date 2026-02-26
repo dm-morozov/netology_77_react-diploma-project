@@ -8,6 +8,7 @@ interface CatalogState {
   isLoadingMore: boolean // загружается ли ещё
   hasMore: boolean // есть ли ещё элементы
   offset: number // количество уже загруженных элементов
+  searchQuery: string // запрос поиска
 }
 
 const initialState: CatalogState = {
@@ -17,6 +18,7 @@ const initialState: CatalogState = {
   isLoadingMore: false,
   hasMore: true,
   offset: 0,
+  searchQuery: '',
 }
 
 const catalogSlice = createSlice({
@@ -59,6 +61,10 @@ const catalogSlice = createSlice({
       state.isLoadingMore = false
       state.error = null
     },
+    catalogSearchChanged: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload
+      state.error = null
+    },
   },
 })
 
@@ -69,6 +75,7 @@ export const {
   catalogLoadMoreRequested,
   catalogLoadMoreSucceeded,
   catalogReset,
+  catalogSearchChanged,
 } = catalogSlice.actions
 
 export default catalogSlice.reducer
