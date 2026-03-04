@@ -1,7 +1,45 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import headerLogo from '/img/header-logo.png'
+import { useState, type ChangeEventHandler, type FormEvent } from 'react'
 
 const Header = () => {
+  const [isOpenSearch, setIsOpenSearch] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
+
+  const navigate = useNavigate() // Выполнить программную навигацию
+
+  const runSearchAction = () => {
+    const value = searchValue.trim()
+
+    if (!isOpenSearch) {
+      setIsOpenSearch(true)
+      return
+    }
+
+    if (!value) {
+      setIsOpenSearch(false)
+      setSearchValue('')
+      return
+    }
+
+    setIsOpenSearch(false)
+    setSearchValue('')
+    navigate(`/catalog.html?q=${encodeURIComponent(value)}`)
+  }
+
+  const handleSearchIconClick = () => {
+    runSearchAction()
+  }
+
+  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    runSearchAction()
+  }
+
+  const handleSearchValue: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setSearchValue(event.target.value)
+  }
+
   return (
     <header className="container">
       <div className="row">
@@ -38,7 +76,9 @@ const Header = () => {
                   <div
                     data-id="search-expander"
                     className="header-controls-pic header-controls-search"
+                    onClick={handleSearchIconClick}
                   ></div>
+
                   {/* Выполнить программную навигацию по щелчку мыши на /cart.html */}
                   <div className="header-controls-pic header-controls-cart">
                     <div className="header-controls-cart-full">1</div>
@@ -47,9 +87,15 @@ const Header = () => {
                 </div>
                 <form
                   data-id="search-form"
-                  className="header-controls-search-form form-inline invisible"
+                  className={`header-controls-search-form form-inline ${isOpenSearch ? '' : 'invisible'}`}
+                  onSubmit={handleSearchSubmit}
                 >
-                  <input className="form-control" placeholder="Поиск" />
+                  <input
+                    value={searchValue}
+                    onChange={handleSearchValue}
+                    className="form-control"
+                    placeholder="Поиск"
+                  />
                 </form>
               </div>
             </div>

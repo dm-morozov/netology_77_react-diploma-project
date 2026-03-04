@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import {
@@ -20,7 +20,7 @@ interface CatalogSectionProps {
 }
 
 const CatalogSection = ({
-  withSearch = false,
+  withSearch = false, // По умолчанию секция каталога не имеет поискового поля
   title = 'Каталог',
 }: CatalogSectionProps) => {
   const dispatch = useAppDispatch()
@@ -42,31 +42,51 @@ const CatalogSection = ({
 
   const allCategories = [{ id: 0, title: 'Все' }, ...categoryItems]
 
+  const [searchParams, setSearchParams] = useSearchParams()
+  const queryFromUrl = searchParams.get('q')?.trim() ?? ''
+
   useEffect(() => {
     dispatch(categoriesRequested())
   }, [dispatch])
 
   useEffect(() => {
-    if (!withSearch) {
-      dispatch(catalogSearchChanged(''))
-    }
-  }, [dispatch, withSearch])
+    if (!withSearch) return
+
+    setValueInput(queryFromUrl)
+    dispatch(catalogSearchChanged(queryFromUrl))
+    dispatch(catalogRequested())
+  }, [dispatch, withSearch, queryFromUrl, activeCategoryId])
 
   useEffect(() => {
+    if (withSearch) return
+
+    dispatch(catalogSearchChanged(''))
     dispatch(catalogRequested())
-  }, [dispatch, activeCategoryId])
+  }, [dispatch, withSearch, activeCategoryId])
 
   const [valueInput, setValueInput] = useState('')
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueInput(e.currentTarget.value)
+    const value = e.currentTarget.value
+    setValueInput(value)
+
+    if (!value.trim()) {
+      setSearchParams({}, { replace: true })
+    }
   }
 
   const handleSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(catalogSearchChanged(valueInput.trim()))
-    dispatch(catalogRequested())
+    const q = valueInput.trim()
+
+    if (!q) {
+      setSearchParams({}, { replace: true })
+      return
+    }
+
+    setSearchParams({ q }, { replace: true })
   }
+
   return (
     <section className="catalog">
       <h2 className="text-center">{title}</h2>
