@@ -4,6 +4,7 @@ import topSalesReducer from '../features/TopSales/topSalesSlice'
 import categoriesReducer from '../features/Categories/categoriesSlice'
 import catalogReducer from '../features/Catalog/catalogSlice'
 import productDetailsReducer from '../features/ProductDetails/productDetailsSlice'
+import cartReducer from '../features/Cart/cartSlice'
 import { rootSaga } from './saga'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -14,6 +15,7 @@ export const store = configureStore({
     categories: categoriesReducer,
     catalog: catalogReducer,
     productDetails: productDetailsReducer,
+    cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
