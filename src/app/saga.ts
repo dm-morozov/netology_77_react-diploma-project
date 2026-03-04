@@ -4,5 +4,10 @@ import { watchCategories } from '../features/Categories/categoriesSaga'
 import { watchCatalog } from '../features/Catalog/catalogSaga'
 
 export function* rootSaga() {
-  yield all([watchTopSales(), watchCategories(), watchCatalog()])
+  yield all([
+    watchTopSales(),
+    watchCategories(),
+    watchCatalog(),
+    watchProductDetails(),
+  ])
 }

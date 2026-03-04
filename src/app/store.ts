@@ -3,14 +3,17 @@ import createSagaMiddleware from 'redux-saga'
 import topSalesReducer from '../features/TopSales/topSalesSlice'
 import categoriesReducer from '../features/Categories/categoriesSlice'
 import catalogReducer from '../features/Catalog/catalogSlice'
+import productDetailsReducer from '../features/ProductDetails/productDetailsSlice'
 import { rootSaga } from './saga'
 
 const sagaMiddleware = createSagaMiddleware()
+
 export const store = configureStore({
   reducer: {
     topSales: topSalesReducer,
     categories: categoriesReducer,
     catalog: catalogReducer,
+    productDetails: productDetailsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
