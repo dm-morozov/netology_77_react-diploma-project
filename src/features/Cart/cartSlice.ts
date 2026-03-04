@@ -32,8 +32,9 @@ const cartSlice = createSlice({
       )
 
       if (existing) {
-        // мы объект не мутируем так как работаем в Redux Toolkit
-        // и он создает новый state, функция по прежнему остается чистой
+        // В Redux Toolkit можно писать "мутационный" код.
+        // Под капотом Immer создает новый immutable state.
+        // функция по прежнему остается чистой
         existing.count += payload.count // existing.count ссылка на объект state.items в памяти
       } else {
         state.items.push({
