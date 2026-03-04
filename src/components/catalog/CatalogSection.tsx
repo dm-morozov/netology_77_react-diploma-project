@@ -81,10 +81,12 @@ const CatalogSection = ({
 
     if (!q) {
       setSearchParams({}, { replace: true })
+      dispatch(catalogRequested())
       return
     }
 
     setSearchParams({ q }, { replace: true })
+    dispatch(catalogRequested())
   }
 
   return (

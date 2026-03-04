@@ -1,5 +1,5 @@
 import { API_BASE_URL, requestJson } from '../common/api'
-import type { Category, ProductShop } from './types'
+import type { Category, ProductDetails, ProductShop } from './types'
 
 export interface GetItemsParams {
   categoryId?: number
@@ -34,4 +34,8 @@ export const getItems = (
   const url = query ? `${API_BASE_URL}/items?${query}` : `${API_BASE_URL}/items`
 
   return requestJson<ProductShop[]>(url)
+}
+
+export const getItemById = (id: number): Promise<ProductDetails> => {
+  return requestJson<ProductDetails>(`${API_BASE_URL}/items/${id}`)
 }
