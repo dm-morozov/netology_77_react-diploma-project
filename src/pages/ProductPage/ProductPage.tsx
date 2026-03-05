@@ -7,6 +7,7 @@ import {
   productDetailsReset,
 } from '../../features/ProductDetails/productDetailsSlice'
 import Spinner from '../../components/Spinner/Spinner'
+import { addToCart } from '../../features/Cart/cartSlice'
 
 const ProductPage = () => {
   const { id } = useParams() // Получаем id из URL, например, /product/123 -> id будет 123, приходит всегда строка
@@ -65,6 +66,22 @@ const ProductPage = () => {
   if (!item) return null
 
   const canAddToCart = availableSizes?.length > 0 && selectedSize !== null
+
+  const handleAddToCart = () => {
+    if (!item || !selectedSize) return
+
+    dispatch(
+      addToCart({
+        id: item.id,
+        title: item.title,
+        size: selectedSize,
+        price: item.price,
+        count,
+      }),
+    )
+
+    navigate('/cart.html')
+  }
 
   return (
     <section className="catalog-item">
@@ -151,7 +168,7 @@ const ProductPage = () => {
                 type="button"
                 className="btn btn-danger btn-block btn-lg"
                 disabled={!canAddToCart}
-                onClick={() => navigate('/cart.html')}
+                onClick={handleAddToCart}
               >
                 В корзину
               </button>

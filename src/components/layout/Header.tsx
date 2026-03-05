@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import headerLogo from '/img/header-logo.png'
 import { useState, type ChangeEventHandler, type FormEvent } from 'react'
+import { useAppSelector } from '../../app/hooks'
 
 const Header = () => {
   const [isOpenSearch, setIsOpenSearch] = useState(false)
@@ -39,6 +40,8 @@ const Header = () => {
   const handleSearchValue: ChangeEventHandler<HTMLInputElement> = (event) => {
     setSearchValue(event.target.value)
   }
+
+  const items = useAppSelector((state) => state.cart.items)
 
   return (
     <header className="container">
@@ -80,8 +83,15 @@ const Header = () => {
                   ></div>
 
                   {/* Выполнить программную навигацию по щелчку мыши на /cart.html */}
-                  <div className="header-controls-pic header-controls-cart">
-                    <div className="header-controls-cart-full">1</div>
+                  <div
+                    className="header-controls-pic header-controls-cart"
+                    onClick={() => navigate('/cart.html')}
+                  >
+                    {items.length > 0 && (
+                      <div className="header-controls-cart-full">
+                        {items.length}
+                      </div>
+                    )}
                     <div className="header-controls-cart-menu"></div>
                   </div>
                 </div>
