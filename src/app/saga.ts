@@ -3,6 +3,7 @@ import { watchTopSales } from '../features/TopSales/topSalesSaga'
 import { watchCategories } from '../features/Categories/categoriesSaga'
 import { watchCatalog } from '../features/Catalog/catalogSaga'
 import { watchProductDetails } from '../features/ProductDetails/productDetailsSaga'
+import { watchOrder } from '../features/Order/orderSaga'
 
 export function* rootSaga() {
   yield all([
@@ -10,5 +11,6 @@ export function* rootSaga() {
     watchCategories(),
     watchCatalog(),
     watchProductDetails(),
+    watchOrder(),
   ])
 }

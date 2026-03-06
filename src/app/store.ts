@@ -5,6 +5,7 @@ import categoriesReducer from '../features/Categories/categoriesSlice'
 import catalogReducer from '../features/Catalog/catalogSlice'
 import productDetailsReducer from '../features/ProductDetails/productDetailsSlice'
 import cartReducer from '../features/Cart/cartSlice'
+import orderReducer from '../features/Order/orderSlice'
 import { rootSaga } from './saga'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -16,6 +17,7 @@ export const store = configureStore({
     catalog: catalogReducer,
     productDetails: productDetailsReducer,
     cart: cartReducer,
+    order: orderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
