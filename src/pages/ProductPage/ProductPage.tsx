@@ -63,7 +63,7 @@ const ProductPage = () => {
     )
   }
 
-  if (!item) return null
+  if (!item) return <ErrorView message="Товар не найден" />
 
   const canAddToCart = availableSizes?.length > 0 && selectedSize !== null
 
@@ -88,7 +88,14 @@ const ProductPage = () => {
       <h2 className="text-center">{item.title}</h2>
       <div className="row">
         <div className="col-5">
-          <img src={item.images[0]} className="img-fluid" alt={item.title} />
+          <img
+            src={
+              item.images[0] ||
+              `https://placehold.co/276x276/ffffff/000000?text=${encodeURIComponent(item.title)}`
+            }
+            className="img-fluid"
+            alt={item.title}
+          />
         </div>
         <div className="col-7">
           <table className="table table-bordered">
