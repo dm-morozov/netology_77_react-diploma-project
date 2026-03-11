@@ -18,6 +18,7 @@ const ProductDetailsSlice = createSlice({
   initialState,
   reducers: {
     productDetailsRequested: (state, _action: PayloadAction<number>) => {
+      void _action
       state.isLoading = true
       state.error = null
       state.item = null

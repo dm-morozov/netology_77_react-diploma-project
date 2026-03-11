@@ -18,6 +18,7 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     orderRequested: (state, _action: PayloadAction<OrderPayload>) => {
+      void _action
       state.isLoading = true
       state.success = false
       state.error = null

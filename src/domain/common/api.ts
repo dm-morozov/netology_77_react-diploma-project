@@ -1,5 +1,6 @@
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:7070/api'
+  import.meta.env.VITE_API_BASE_URL ??
+  'https://netology-77-react-diploma-project.onrender.com/api'
 
 // Так как запросы у нас повторяются, вынесем в отдельную функцию использую дженерик T
 export const requestJson = async <T>(url: string): Promise<T> => {
