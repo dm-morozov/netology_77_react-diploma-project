@@ -89,6 +89,19 @@ const CatalogSection = ({
     dispatch(catalogRequested())
   }
 
+  const sectionError = categoriesError ?? catalogError
+
+  const handleSectionRetry = () => {
+    if (categoriesError) {
+      dispatch(categoriesRequested())
+    }
+    if (catalogError) {
+      dispatch(catalogRequested())
+    }
+  }
+
+  const isSectionLoading = isCategoriesLoading || isCatalogLoading
+
   return (
     <section className="catalog">
       <h2 className="text-center">{title}</h2>
@@ -106,14 +119,13 @@ const CatalogSection = ({
           />
         </form>
       )}
-      {isCategoriesLoading && <Spinner />}
-      {categoriesError && (
-        <ErrorView
-          message={categoriesError}
-          onRetry={() => dispatch(categoriesRequested())}
-        />
+      {isSectionLoading && <Spinner />}
+
+      {sectionError && (
+        <ErrorView message={sectionError} onRetry={handleSectionRetry} />
       )}
-      {!isCategoriesLoading && !categoriesError && (
+
+      {!isCategoriesLoading && !sectionError && (
         <ul className="catalog-categories nav justify-content-center">
           {allCategories.map((item) => (
             <li className="nav-item" key={item.id}>
@@ -131,16 +143,8 @@ const CatalogSection = ({
           ))}
         </ul>
       )}
-      {isCatalogLoading && <Spinner />}
 
-      {catalogError && (
-        <ErrorView
-          message={catalogError}
-          onRetry={() => dispatch(catalogRequested())}
-        />
-      )}
-
-      {!isCatalogLoading && !catalogError && (
+      {!isCatalogLoading && !sectionError && (
         <div className="row">
           {catalogItems.map((item) => (
             <div className="col-4" key={item.id}>
@@ -172,8 +176,9 @@ const CatalogSection = ({
           ))}
         </div>
       )}
-      {isLoadingMore && <Spinner />}
-      {!isCatalogLoading && !catalogError && hasMore && (
+      {isLoadingMore && !sectionError && <Spinner />}
+
+      {!isCatalogLoading && !sectionError && hasMore && (
         <div className="text-center">
           <button
             type="button"

@@ -7,7 +7,7 @@ const Header = () => {
   const [isOpenSearch, setIsOpenSearch] = useState(false)
   const [searchValue, setSearchValue] = useState('')
 
-  const navigate = useNavigate() // Выполнить программную навигацию
+  const navigate = useNavigate()
 
   const runSearchAction = () => {
     const value = searchValue.trim()
@@ -26,10 +26,6 @@ const Header = () => {
     setIsOpenSearch(false)
     setSearchValue('')
     navigate(`/catalog.html?q=${encodeURIComponent(value)}`)
-  }
-
-  const handleSearchIconClick = () => {
-    runSearchAction()
   }
 
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -77,13 +73,16 @@ const Header = () => {
               <div>
                 <div className="header-controls-pics">
                   <div
+                    role="button"
+                    tabIndex={0}
                     data-id="search-expander"
                     className="header-controls-pic header-controls-search"
-                    onClick={handleSearchIconClick}
+                    onClick={runSearchAction}
                   ></div>
 
-                  {/* Выполнить программную навигацию по щелчку мыши на /cart.html */}
                   <div
+                    role="button"
+                    tabIndex={0}
                     className="header-controls-pic header-controls-cart"
                     onClick={() => navigate('/cart.html')}
                   >

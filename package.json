@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint ./src --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "backend": "yarn --cwd backend start"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",

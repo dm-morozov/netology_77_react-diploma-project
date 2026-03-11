@@ -95,6 +95,10 @@ const ProductPage = () => {
             }
             className="img-fluid"
             alt={item.title}
+            onError={(e) => {
+              e.currentTarget.onerror = null
+              e.currentTarget.src = `https://placehold.co/276x276/ffffff/000000?text=${encodeURIComponent(item.title)}`
+            }}
           />
         </div>
         <div className="col-7">
