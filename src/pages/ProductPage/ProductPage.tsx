@@ -55,9 +55,11 @@ const ProductPage = () => {
   if (isLoading) return <Spinner />
 
   if (error) {
+    const errorMessage = error.includes('404') ? 'Товар не найден' : error
+
     return (
       <ErrorView
-        message={error}
+        message={errorMessage}
         onRetry={() => dispatch(productDetailsRequested(numericId))}
       />
     )

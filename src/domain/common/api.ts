@@ -8,10 +8,6 @@ export const requestJson = async <T>(url: string): Promise<T> => {
 
   // По заданию нужно обработать ошибку
   if (!response.ok) {
-    if (response.status === 404) {
-      throw new Error('Товар не найден')
-    }
-
     throw new Error(`HTTP ${response.status}: ${response.statusText}`)
   }
 

@@ -6,8 +6,8 @@
 
 ## Демо
 
-- Frontend: https://dm-morozov.github.io/netology_77_react-diploma-project/
-- Backend (Render API): https://netology-76-react-redux-saga.onrender.com/api/
+- Frontend: https://dm-morozov.github.io/netology_77_react-diploma-project
+- Backend (Render API): https://netology-77-react-diploma-project.onrender.com/api
 - Репозиторий: https://github.com/dm-morozov/netology_77_react-diploma-project
 
 ## Что реализовано
@@ -89,7 +89,7 @@ src/
 - Цена фиксируется в момент добавления товара в корзину
 - При успешном заказе корзина очищается и в Redux, и в `localStorage`
 - Для битых изображений добавлены fallback-картинки
-- Для `404` ответа API выводится понятное сообщение `Товар не найден`
+- Для `404` на странице товара выводится понятное сообщение `Товар не найден`
 
 ## Установка и запуск
 
@@ -131,7 +131,7 @@ VITE_API_BASE_URL=http://localhost:7070/api
 Для production используется:
 
 ```env
-VITE_API_BASE_URL=https://netology-76-react-redux-saga.onrender.com/api/
+VITE_API_BASE_URL=https://netology-77-react-diploma-project.onrender.com/api
 ```
 
 ## Проверка нестабильного сервера
