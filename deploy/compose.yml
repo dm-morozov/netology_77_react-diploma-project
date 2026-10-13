@@ -1,0 +1,26 @@
+name: bosa-noga
+services:
+  api:
+    build: ../backend
+    image: bosa-noga-api:20261013
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:18082:7070"
+    environment:
+      NODE_ENV: production
+      PORT: "7070"
+      APP_DELAY: "false"
+      APP_ERROR: "false"
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m
+    cpus: 0.25
+    pids_limit: 64
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"

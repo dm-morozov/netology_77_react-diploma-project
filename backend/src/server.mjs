@@ -31,16 +31,30 @@ const config = {
 }
 
 const parseRequestBody = req => {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     let body = []
+    let size = 0
     req
       .on('data', chunk => {
+        size += chunk.length
+        if (size > 16 * 1024) {
+          reject(Object.assign(new Error('Request body too large'), { statusCode: 413 }))
+          return
+        }
         body.push(chunk)
       })
       .on('end', () => {
-        body = Buffer.concat(body).toString()
-        resolve(JSON.parse(body))
+        if (size > 16 * 1024) return
+        try {
+          const data = JSON.parse(Buffer.concat(body).toString())
+          if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('Invalid body')
+          resolve(data)
+        } catch {
+          reject(Object.assign(new Error('Invalid JSON body'), { statusCode: 400 }))
+        }
       })
+      .on('error', reject)
+      .on('aborted', () => reject(new Error('Request aborted')))
   })
 }
 
@@ -59,7 +73,7 @@ const handleOptionsRequest = (req, res) => {
 const sendResponse = (res, statusCode, data = null) => {
   setCorsHeaders(res)
   res.writeHead(statusCode, { 'Content-Type': 'application/json' })
-  res.end(JSON.stringify(data))
+  res.end(statusCode === 204 ? undefined : JSON.stringify(data))
 }
 
 const createServer = (port = 7070) => {
@@ -73,7 +87,7 @@ const createServer = (port = 7070) => {
     }
 
     if (config.error && Math.random() > 0.8) {
-      sendResponse(res, 500, 'Internal server error')
+      return sendResponse(res, 500, 'Internal server error')
     }
 
     const parsedUrl = url.parse(req.url, true)
@@ -122,7 +136,7 @@ const createServer = (port = 7070) => {
         const body = await parseRequestBody(req)
 
         const { owner = {}, items: orderItems = [] } = body
-        const { phone, address } = owner
+        const { phone, address } = owner || {}
 
         if (typeof phone !== 'string' || typeof address !== 'string') {
           return sendResponse(res, 400, 'Invalid owner data')
@@ -145,7 +159,8 @@ const createServer = (port = 7070) => {
 
       sendResponse(res, 404, 'Not found')
     } catch (error) {
-      sendResponse(res, 500, 'Internal server error')
+      if (res.destroyed) return
+      sendResponse(res, error.statusCode || 500, error.statusCode ? error.message : 'Internal server error')
     }
   })
 

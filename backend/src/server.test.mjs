@@ -97,4 +97,28 @@ describe('API Server', () => {
     const res = await fetch(`${BASE_URL}/unknown-route`)
     assert.strictEqual(res.status, 404)
   })
+
+  it('malformed JSON and non-object bodies should not crash the server', async () => {
+    for (const body of ['{', 'null', '[]']) {
+      const res = await fetch(`${BASE_URL}/api/order`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body
+      })
+      assert.strictEqual(res.status, 400)
+    }
+    assert.strictEqual((await fetch(`${BASE_URL}/api/categories`)).status, 200)
+  })
+
+  it('should reject oversized bodies and remain available', async () => {
+    const res = await fetch(`${BASE_URL}/api/order`, {
+      method: 'POST', body: JSON.stringify({ padding: 'x'.repeat(17000) })
+    })
+    assert.strictEqual(res.status, 413)
+    assert.strictEqual((await fetch(`${BASE_URL}/api/categories`)).status, 200)
+  })
+
+  it('should answer browser preflight requests', async () => {
+    const res = await fetch(`${BASE_URL}/api/order`, { method: 'OPTIONS' })
+    assert.strictEqual(res.status, 200)
+    assert.match(res.headers.get('access-control-allow-methods'), /POST/)
+  })
 })

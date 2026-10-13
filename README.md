@@ -7,8 +7,10 @@
 ## Демо
 
 - Frontend: https://dm-morozov.github.io/netology_77_react-diploma-project
-- Backend (Render API): https://netology-77-react-diploma-project.onrender.com/api
+- Backend (Selectel, Docker): https://bosa-api.mu56.ru/api/categories
 - Репозиторий: https://github.com/dm-morozov/netology_77_react-diploma-project
+
+API демо постоянно работает в отдельном Docker-контейнере на VPS. Искусственные задержки и случайные ошибки отключены. Данные каталога статические; оформление заказа демонстрирует валидацию, но не сохраняет и не отправляет реальные заказы. Развёртывание: [deploy/README.md](deploy/README.md).
 
 ## Что реализовано
 
@@ -131,7 +133,7 @@ VITE_API_BASE_URL=http://localhost:7070/api
 Для production используется:
 
 ```env
-VITE_API_BASE_URL=https://netology-77-react-diploma-project.onrender.com/api
+VITE_API_BASE_URL=https://bosa-api.mu56.ru/api
 ```
 
 ## Проверка нестабильного сервера
